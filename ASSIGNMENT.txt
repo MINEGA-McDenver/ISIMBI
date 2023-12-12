@@ -1,0 +1,128 @@
+ASSIGNMENT         REG NO:222016859
+
+
+QUESTION 1.
+
+#!/bin/bash
+
+# Check if the number of command line arguments is correct (3)
+
+if [ "$#" -ne 3 ]; then
+    echo "Error: Incorrect number of arguments. Expected 3 arguments." > error.txt
+    exit 1
+fi
+
+# Sort the numbers in ascending order
+
+echo "$@" | tr ' ' '\n' | sort -n > numbers.txt
+
+echo "Numbers sorted and saved in numbers.txt"
+
+
+
+QUESTION 2.
+
+
+#!/bin/bash
+
+# Check if a directory path is provided as an argument
+
+if [ $# -eq 0 ]; then
+    echo "Please provide a directory path as an argument."
+    exit 1
+fi
+
+# Get the directory path from the command line argument
+
+directory="$1"
+
+# Count the number of files and subfolders
+
+file_count=$(find "$directory" -type f | wc -l)
+subfolder_count=$(find "$directory" -type d | wc -l)
+
+# Write the counts to the accounts.txt file
+
+echo "Number of files: $file_count" > accounts.txt
+echo "Number of subfolders: $subfolder_count" >> accounts.txt
+
+echo "Counts written to accounts.txt."
+
+
+QUESTION 3.
+
+#!/bin/bash
+
+# Read the arithmetic expression from the user
+
+read -p "Enter an arithmetic expression (e.g., 5 + 7): " expression
+
+# Use 'bc' to evaluate the expression
+
+result=$(echo "$expression" | bc)
+
+# Display the result
+
+echo "$expression = $result"
+
+
+QUESTION 4.
+
+#!/bin/bash
+
+# Shell script for factorial of a number using a for loop
+
+echo "Enter a positive integer:"
+read num
+
+fact=1
+for ((i = 2; i <= num; i++)); do
+    fact=$((fact * i))
+done
+
+echo $fact
+
+
+
+QUESTION 5.
+
+
+#!/bin/bash
+
+# Check if the correct number of arguments (2) is provided
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <directory1> <directory2>"
+    exit 1
+fi
+
+# Validate if both arguments are directories
+
+if [ ! -d "$1" ] || [ ! -d "$2" ]; then
+    echo "Error: Both arguments must be valid directories."
+    exit 1
+fi
+
+# Remove files from directory 1 that exist in directory 2
+
+for file in "$1"/*; do
+    if [ -f "$file" ]; then
+        filename=$(basename "$file")
+        if [ -f "$2/$filename" ]; then
+            rm "$file"
+            echo "Removed: $file"
+        fi
+    fi
+done
+
+echo "Files removed successfully!"
+
+
+
+
+
+
+
+
+
+
